@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "zpDlL4kuBVzjHo0BSTtLXEOi7coH75ZUdLmoEhJccEo0QVcUUmXbriA1UqM+RpWmZCXMX1+V0zpf8IXiUBukbg==",
+  "success": true,
+  "projectFilePath": "/Users/sergeikrainyukov/FirstIonideProject/FirstIonideProject.fsproj",
+  "expectedPackageFiles": [
+    "/Users/sergeikrainyukov/.nuget/packages/fsharp.core/7.0.200/fsharp.core.7.0.200.nupkg.sha512"
+  ],
+  "logs": []
+}
