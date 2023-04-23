@@ -1,5 +1,6 @@
 // 17.1
-let rec pow = function 
+let rec pow = function
+ | (x,n) when n = 0 -> ""
  | (x,n) when n <= 1 -> x
  | (x,n) -> x + pow(x, n - 1)
 //17.2 
