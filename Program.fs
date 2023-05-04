@@ -22,9 +22,28 @@ printfn "%d" (508%240)
 let (.+) (a, b) (c, d) = (a + c, b + d)
 let (.-) (a, b) (c, d) = (a - c, b - d)
 let (.*) (a, b) (c, d) = (a * c - b * d, b * c + a * d)
-// let (./) (a, b) (c, d) = (a,b) .* inverseForDivide (c,d)
-// let (./) (a, b) (c, d) = let r = c * c + d * d in (a * c + b * d) / r, (b * c - a * d) / r
 let (./) (a, b) (c, d) = ( (a*c+b*d)/(c*c+d*d), (b * c - a * d)/(c*c+d*d))
 
 
 printfn "%A" ((4,0) ./ (2,0))
+
+
+
+type TimeOfDay = { hours: int; minutes: int; f: string }
+
+let more = function
+  | x, y when (x.f = "PM") && (y.f = "AM") -> true
+  | x, y when (x.f = "AM") && (y.f = "PM") -> false
+  | x, y when (x.f = y.f) && (x.hours>y.hours) -> true
+  | x, y when (x.f = y.f) && (x.hours<y.hours) -> false
+  | x, y when (x.f = y.f) && (x.hours=y.hours) && (x.minutes>y.minutes)-> true
+  | x, y when (x.f = y.f) && (x.hours=y.hours) && (x.minutes<y.minutes)-> false
+  |_ -> false
+
+let (.>.) x y = more (x, y)
+
+let v1 = { hours = 2; minutes = 19; f = "PM" }
+let v2 = { hours = 2; minutes = 19; f = "PM" }
+// true 
+
+printfn "%b" (v1.>.v2)
