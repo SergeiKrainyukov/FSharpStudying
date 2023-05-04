@@ -10,9 +10,3 @@ let more = function
   |_ -> false
 
 let (.>.) x y = more (x, y)
-
-let v1 = { hours = 2; minutes = 19; f = "PM" }
-let v2 = { hours = 2; minutes = 19; f = "PM" }
-// true 
-
-printfn "%b" (v1.>.v2)
