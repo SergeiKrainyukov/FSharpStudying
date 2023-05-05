@@ -29,21 +29,44 @@ printfn "%A" ((4,0) ./ (2,0))
 
 
 
-type TimeOfDay = { hours: int; minutes: int; f: string }
 
-let more = function
-  | x, y when (x.f = "PM") && (y.f = "AM") -> true
-  | x, y when (x.f = "AM") && (y.f = "PM") -> false
-  | x, y when (x.f = y.f) && (x.hours>y.hours) -> true
-  | x, y when (x.f = y.f) && (x.hours<y.hours) -> false
-  | x, y when (x.f = y.f) && (x.hours=y.hours) && (x.minutes>y.minutes)-> true
-  | x, y when (x.f = y.f) && (x.hours=y.hours) && (x.minutes<y.minutes)-> false
-  |_ -> false
 
-let (.>.) x y = more (x, y)
+// type TimeOfDay = { hours: int; minutes: int; f: string }
 
-let v1 = { hours = 2; minutes = 19; f = "PM" }
-let v2 = { hours = 2; minutes = 19; f = "PM" }
-// true 
+// let more = function
+//   | x, y when (x.f = "PM") && (y.f = "AM") -> true
+//   | x, y when (x.f = "AM") && (y.f = "PM") -> false
+//   | x, y when (x.f = y.f) && (x.hours>y.hours) -> true
+//   | x, y when (x.f = y.f) && (x.hours<y.hours) -> false
+//   | x, y when (x.f = y.f) && (x.hours=y.hours) && (x.minutes>y.minutes)-> true
+//   | x, y when (x.f = y.f) && (x.hours=y.hours) && (x.minutes<y.minutes)-> false
+//   |_ -> false
+
+// let (.>.) x y = more (x, y)
+
+// let v1 = { hours = 2; minutes = 19; f = "PM" }
+// let v2 = { hours = 2; minutes = 19; f = "PM" }
+// // true 
+
+// printfn "%b" (v1.>.v2)
+
+
+
+
+
+type F = 
+  | AM
+  | PM
+
+type TimeOfDay = { hours : int; minutes : int; f: F }
+
+let transform (x: TimeOfDay) = 
+    if x.f = PM then (x.hours + 12) * 60 + x.minutes
+    else x.hours * 60 + x.minutes
+
+let (.>.) x y = (transform x) > (transform y)
+
+let v1 = { hours = 3; minutes = 0; f = PM }
+let v2 = { hours = 2; minutes = 59; f = PM }
 
 printfn "%b" (v1.>.v2)
