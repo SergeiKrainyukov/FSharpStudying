@@ -70,3 +70,38 @@ let v1 = { hours = 3; minutes = 0; f = PM }
 let v2 = { hours = 2; minutes = 59; f = PM }
 
 printfn "%b" (v1.>.v2)
+
+
+
+
+//Task34
+// 34.1
+let rec upto = function
+    | n when n>0 -> 
+      let rec upto2 = function
+          | (n, array) when n>0 -> upto2(n-1, n::array)
+          | (n, array) -> array
+      upto2 (n, [])
+    |_ -> []
+
+List.iter (fun x -> printfn "%d" x) (upto 5)
+
+// 34.2
+let rec dnto = function
+  | n when n = 0 -> []
+  | n when n > 0 -> n::dnto (n-1)
+  |_->[]
+
+List.iter (fun x -> printfn "%d" x) (dnto 5)
+
+// // 34.3
+let rec evenn = function
+    | n when n>=0 -> 
+      let rec upto2 = function
+          | (n, array) when n>0 -> upto2(n-1, (n-1)*2::array)
+          | (n, array) -> array
+
+      upto2 (n, [])
+    |_ -> []
+
+List.iter (fun x -> printfn "%d" x) (evenn 3)
