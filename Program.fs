@@ -162,3 +162,39 @@ let xs2 = ["a"; "b"; "c"]
 
 let zipped = zip (xs1, xs2)
 zipped |> List.iter (fun (x, y) -> printfn "(%d, %s)" x y)
+
+
+
+
+//Task40
+let rec sum (p, xs) =
+    match xs with
+    | [] -> 0  
+    | x::tail ->   
+        let tailSum = sum (p, tail) 
+        if p x then x + tailSum  
+        else tailSum  
+
+
+let isEven x = x % 2 = 0 
+
+let numbers = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
+let result = sum (isEven, numbers)
+
+printfn "%d" result
+
+
+let rec intersect (xs1, xs2) =
+    match (xs1, xs2) with
+    | [], _ -> []
+    | _, [] -> []
+    | x::tail1, y::tail2 when x = y -> x :: intersect (tail1, tail2)
+    | x::tail1, y::tail2 when x < y -> intersect (tail1, xs2)
+    | x::tail1, y::tail2 -> intersect (xs1, tail2)
+
+// Пример использования
+let list11 = [1; 2; 3; 4; 5]
+let list22 = [3; 4; 5; 6; 7]
+let result1 = intersect (list11, list22)
+
+printfn "%A" result1
