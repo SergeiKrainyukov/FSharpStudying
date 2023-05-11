@@ -39,7 +39,7 @@ let rec minus (xs1, xs2) =
     match (xs1, xs2) with
     | [], _ -> [] 
     | xs1, [] -> xs1 
-    | x::tail1, y::tail2 when x = y -> minus (tail1, xs2) 
+    | x::tail1, y::tail2 when x = y -> minus (tail1, tail2) 
     | x::tail1, y::tail2 when x < y -> x :: minus (tail1, xs2)
     | x::tail1, y::tail2 -> minus (xs1, tail2)
 
