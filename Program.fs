@@ -198,3 +198,21 @@ let list22 = [3; 4; 5; 6; 7]
 let result1 = intersect (list11, list22)
 
 printfn "%A" result1
+
+
+
+
+let rec plus (xs1, xs2) =
+    match (xs1, xs2) with
+    | [], xs2 -> xs2 
+    | xs1, [] -> xs1  
+    | x::tail1, y::tail2 when x = y -> x :: y :: plus (tail1, tail2)  
+    | x::tail1, y::tail2 when x < y -> x :: plus (tail1, xs2)  
+    | x::tail1, y::tail2 -> y :: plus (xs1, tail2)
+
+
+let list111 = [0; 1; 1; 2]
+let list222 = [1; 2; 2; 3]
+let result11 = plus (list111, list222)
+
+printfn "%A" result11

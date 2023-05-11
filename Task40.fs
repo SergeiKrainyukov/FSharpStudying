@@ -31,7 +31,7 @@ let rec plus (xs1, xs2) =
     match (xs1, xs2) with
     | [], xs2 -> xs2 
     | xs1, [] -> xs1  
-    | x::tail1, y::tail2 when x = y -> x :: plus (tail1, tail2)  
+    | x::tail1, y::tail2 when x = y -> x :: y :: plus (tail1, tail2)  
     | x::tail1, y::tail2 when x < y -> x :: plus (tail1, xs2)  
     | x::tail1, y::tail2 -> y :: plus (xs1, tail2)
 
