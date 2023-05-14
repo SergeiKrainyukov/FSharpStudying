@@ -167,21 +167,21 @@ zipped |> List.iter (fun (x, y) -> printfn "(%d, %s)" x y)
 
 
 //Task40
-let rec sum (p, xs) =
-    match xs with
-    | [] -> 0  
-    | x::tail ->   
-        let tailSum = sum (p, tail) 
-        if p x then x + tailSum  
-        else tailSum  
+// let rec sum (p, xs) =
+//     match xs with
+//     | [] -> 0  
+//     | x::tail ->   
+//         let tailSum = sum (p, tail) 
+//         if p x then x + tailSum  
+//         else tailSum  
 
 
-let isEven x = x % 2 = 0 
+// let isEven x = x % 2 = 0 
 
-let numbers = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
-let result = sum (isEven, numbers)
+// let numbers = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
+// let result = sum (isEven, numbers)
 
-printfn "%d" result
+// printfn "%d" result
 
 
 let rec intersect (xs1, xs2) =
@@ -216,3 +216,38 @@ let list222 = [1; 2; 2; 3]
 let result11 = plus (list111, list222)
 
 printfn "%A" result11
+
+
+
+let minus x y = x - y
+let a = List.fold minus 0 [1; 2; 3]
+printfn "%d" a
+
+
+// 41.4.1
+let list_filter f xs =
+    List.foldBack
+        (fun x acc -> if f x then x::acc else acc)
+        xs
+        []
+
+
+// 41.4.2
+let sum (p, xs) = 
+  let rec checkPredicate  = function
+    | [] -> []
+    | (x::tail) when p x = true -> x::checkPredicate (tail)
+    | (x::tail) when p x = false -> checkPredicate (tail)
+    |_->[]
+  List.fold (+) 0 (checkPredicate xs)
+
+printfn "%d" (sum ((fun x -> x > 0), [-1; 2; 1]))
+
+// 41.4.3
+let revrev = 
+  let rev lst = List.fold (fun head tail -> tail::head) [] lst
+  function
+    | []->[]
+    | lists -> List.fold(fun head tail -> rev tail::rev head) [] (lists)
+
+printfn "%A" (revrev [[1;2];[3;4;5]])
