@@ -251,3 +251,10 @@ let revrev =
     | lists -> List.fold(fun head tail -> rev tail::rev head) [] (lists)
 
 printfn "%A" (revrev [[1;2];[3;4;5]])
+
+
+
+let rec allSubsets n k =
+  match (n,k) with
+  |(n,k) when n = 0 || k = 0 -> set []
+  |(n,k) when n=1&&k=1->set [1]
