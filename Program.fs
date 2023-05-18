@@ -254,7 +254,20 @@ printfn "%A" (revrev [[1;2];[3;4;5]])
 
 
 
+// let rec allSubsets n k =
+//   match (n,k) with
+//   |(n,k) when n = 0 || k = 0 -> set []
+//   |(n,k) when n=1&&k=1->set [1]
+
+
 let rec allSubsets n k =
-  match (n,k) with
-  |(n,k) when n = 0 || k = 0 -> set []
-  |(n,k) when n=1&&k=1->set [1]
+    if k = 0 then
+       Set.singleton Set.empty
+    elif n = 0 then
+       Set.empty
+    else
+        let subsetsWithN = allSubsets (n - 1) (k - 1) |> Set.map (fun subset -> Set.add n subset)
+        let subsetsWithoutN = allSubsets (n - 1) k
+        Set.union subsetsWithN subsetsWithoutN
+
+printfn "%A" (allSubsets 4 2)
