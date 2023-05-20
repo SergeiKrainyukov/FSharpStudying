@@ -260,14 +260,74 @@ printfn "%A" (revrev [[1;2];[3;4;5]])
 //   |(n,k) when n=1&&k=1->set [1]
 
 
-let rec allSubsets n k =
-    if k = 0 then
-       Set.singleton Set.empty
-    elif n = 0 then
-       Set.empty
-    else
-        let subsetsWithN = allSubsets (n - 1) (k - 1) |> Set.map (fun subset -> Set.add n subset)
-        let subsetsWithoutN = allSubsets (n - 1) k
-        Set.union subsetsWithN subsetsWithoutN
+// let rec allSubsets n k =
+//     if k = 0 then
+//        Set.singleton Set.empty
+//     elif n = 0 then
+//        Set.empty
+//     else
+//         let subsetsWithN = allSubsets (n - 1) (k - 1) |> Set.map (fun subset -> Set.add n subset)
+//         let subsetsWithoutN = allSubsets (n - 1) k
+//         Set.union subsetsWithN subsetsWithoutN
 
-printfn "%A" (allSubsets 4 2)
+
+
+
+// let rec subsets = function
+//     | [] -> [[]]
+//     | head::tail -> 
+//         let tailSubsets = subsets tail
+//         let prependHead subset = head::subset
+//         let prependEmpty subset = subset
+//         let subsetsWithHead = List.map prependHead tailSubsets
+//         let subsetsWithoutHead = List.map prependEmpty tailSubsets
+//         subsetsWithHead @ subsetsWithoutHead
+
+
+let rec test xs = 
+  match xs with
+    | [] -> [[]]
+    | head::tail -> List.fold(fun a b -> (head::b)::(b::a) ) [] (test tail)
+
+printfn "%A" (test [1,2,3])
+
+let rec subsets xs= 
+         match xs with 
+           | [] -> [[]] 
+           | head::tail -> List.fold (fun head1 tail1 -> 
+                (head::tail1)::tail1::head1) [] (subsets tail) 
+// printfn "%A" (subsets [1,2,3])
+
+
+let allSubsets n k = 
+     Set.filter (fun xs -> true) (Set.ofList (List.foldBack (fun head tail ->
+        (Set.ofList head) :: tail) (subsets [1..n]) [] )) 
+
+
+printfn "%A" (allSubsets 2 2)
+
+let a2 = [(128,"oksana"); (32,"oleg")]
+
+// 43.3
+let try_find key m = 
+  let getSecond = function
+    | (_, sec) -> sec
+
+  let isExist = function
+    | (key, keyValue) when key = (fst keyValue) -> true
+    |_-> false
+
+  let rec find = function
+    | [] -> None
+    | head::_ when isExist (key, head) = true -> Some (getSecond (head))
+    | _::tail -> find tail
+  find (Map.toList m)
+
+let map = Map.ofList [(1, "One"); (2, "Two"); (3, "Three")]
+let result = try_find 1 map
+
+match result with
+| Some value -> printfn "%s" value
+| None -> printfn "Key not found"
+
+
