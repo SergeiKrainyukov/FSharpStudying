@@ -331,3 +331,40 @@ match result with
 | None -> printfn "Key not found"
 
 
+let fibo n = 
+     let mutable a = 0 
+     let mutable b = 1 
+     let mutable c = 0 
+     let mutable i = 1 
+     while i < n do 
+         c <- b 
+         b <- b + a 
+         a <- c 
+         i <- i + 1 
+     if n = 0 then a else b 
+
+
+let rec factorial n c =
+    if n <= 1 then c 1
+    else factorial (n-1) (fun f -> c n * f)
+printfn "%d" (factorial 5 id) // 120
+
+// 48.4.1
+let rec fibo1 n n1 n2 =
+  if n = 0 then n2
+  else fibo1 (n-1) (n1+n2) (n1)
+
+printfn "%d" (fibo1 6 1 0)
+
+// 48.4.2
+let rec fibo2 n c =
+  if n = 0 then c 0
+  elif n = 1 then c 1
+  else fibo2 (n-1) (fun last -> fibo2 (n-2) (fun last2 -> c (last+last2)))
+printfn "%d" (fibo2 6 id)
+
+// 48.4.3
+let rec bigList n k =
+  if n=0 then k []
+  else bigList (n-1) (fun res -> k(1::res))
+printfn "%A" (bigList 12000000 id)
