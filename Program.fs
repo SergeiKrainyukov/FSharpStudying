@@ -344,10 +344,10 @@ let fibo n =
      if n = 0 then a else b 
 
 
-let rec factorial n c =
-    if n <= 1 then c 1
-    else factorial (n-1) (fun f -> c n * f)
-printfn "%d" (factorial 5 id) // 120
+// let rec factorial n c =
+//     if n <= 1 then c 1
+//     else factorial (n-1) (fun f -> c n * f)
+// printfn "%d" (factorial 5 id) // 120
 
 // 48.4.1
 let rec fibo1 n n1 n2 =
@@ -368,3 +368,30 @@ let rec bigList n k =
   if n=0 then k []
   else bigList (n-1) (fun res -> k(1::res))
 printfn "%A" (bigList 12000000 id)
+
+
+// 49.5.1
+let even_seq = Seq.initInfinite (fun i -> i*2)
+even_seq
+|> Seq.take 10
+|> Seq.iter (printfn "%A")
+
+// 49.5.2
+let rec factorial n c =
+    if n <= 1 then c 1
+    else factorial (n-1) (fun f -> c n * f)
+let fac_seq = Seq.initInfinite (fun i -> factorial i id)
+fac_seq
+|> Seq.take 10
+|> Seq.iter (printfn "%A")
+// 49.5.3
+
+let checkElement i seq = 
+  match i with 
+  | i when i = 0 -> 0
+  | i when Seq.item i seq < 0 -> -1 * (Seq.item i seq)
+  | i when Seq.item i seq >= 0 -> (Seq.item i seq) + 1
+let seq_seq = Seq.initInfinite (fun i -> if i % 2 = 0 then -i/2 else (i+1)/2)
+seq_seq
+|> Seq.take 10
+|> Seq.iter (printfn "%A")
