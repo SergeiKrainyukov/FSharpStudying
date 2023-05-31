@@ -371,27 +371,44 @@ printfn "%A" (bigList 12000000 id)
 
 
 // 49.5.1
-let even_seq = Seq.initInfinite (fun i -> i*2+2)
-even_seq
-|> Seq.take 10
-|> Seq.iter (printfn "%A")
+// let even_seq = Seq.initInfinite (fun i -> i*2+2)
+// even_seq
+// |> Seq.take 10
+// |> Seq.iter (printfn "%A")
 
-// 49.5.2
+// // 49.5.2
+// let rec factorial n c =
+//     if n <= 1 then c 1
+//     else factorial (n-1) (fun f -> c n * f)
+// let fac_seq = Seq.initInfinite (fun i -> factorial i id)
+// fac_seq
+// |> Seq.take 10
+// |> Seq.iter (printfn "%A")
+// // 49.5.3
+// let seq_seq = Seq.initInfinite (fun i -> if i % 2 = 0 then i/2 else -(i+1)/2)
+// seq_seq
+// |> Seq.take 10
+// |> Seq.iter (printfn "%A")
+
+
+
+// 50.2.1
+
 let rec factorial n c =
     if n <= 1 then c 1
     else factorial (n-1) (fun f -> c n * f)
-let fac_seq = Seq.initInfinite (fun i -> factorial i id)
-fac_seq
+
+let fac_seq n = seq{
+  for i in 0..n do yield factorial i id
+}
+fac_seq 10
 |> Seq.take 10
 |> Seq.iter (printfn "%A")
-// 49.5.3
 
-let checkElement i seq = 
-  match i with 
-  | i when i = 0 -> 0
-  | i when Seq.item i seq < 0 -> -1 * (Seq.item i seq)
-  | i when Seq.item i seq >= 0 -> (Seq.item i seq) + 1
-let seq_seq = Seq.initInfinite (fun i -> if i % 2 = 0 then i/2 else -(i+1)/2)
-seq_seq
+// 50.2.2
+let seq_seq n = seq{
+  for i in 0..n do yield if i % 2 = 0 then i/2 else -(i+1)/2
+}
+seq_seq 10
 |> Seq.take 10
 |> Seq.iter (printfn "%A")
