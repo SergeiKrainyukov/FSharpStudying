@@ -391,7 +391,7 @@ let checkElement i seq =
   | i when i = 0 -> 0
   | i when Seq.item i seq < 0 -> -1 * (Seq.item i seq)
   | i when Seq.item i seq >= 0 -> (Seq.item i seq) + 1
-let seq_seq = Seq.initInfinite (fun i -> if i % 2 = 0 then -i/2 else (i+1)/2)
+let seq_seq = Seq.initInfinite (fun i -> if i % 2 = 0 then i/2 else -(i+1)/2)
 seq_seq
 |> Seq.take 10
 |> Seq.iter (printfn "%A")

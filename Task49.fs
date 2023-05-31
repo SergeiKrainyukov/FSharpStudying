@@ -9,4 +9,4 @@ let rec factorial n c =
 let fac_seq = Seq.initInfinite (fun i -> factorial i id)
 
 // 49.5.3
-let seq_seq = Seq.initInfinite (fun i -> if i % 2 = 0 then -i/2 else (i+1)/2)
+let seq_seq = Seq.initInfinite (fun i -> if i % 2 = 0 then i/2 else -(i+1)/2)
