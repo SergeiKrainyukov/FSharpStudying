@@ -392,23 +392,40 @@ printfn "%A" (bigList 12000000 id)
 
 
 
+
+let rec evenPositiveNumbers n =
+    seq {
+        yield n
+        yield! evenPositiveNumbers (n + 2)
+    }
+
+let sequence = evenPositiveNumbers 2
+
+
 // 50.2.1
 
 let rec factorial n c =
     if n <= 1 then c 1
     else factorial (n-1) (fun f -> c n * f)
 
-let fac_seq n = seq{
-  for i in 0..n do yield factorial i id
+let rec facSeq n = seq{
+  yield factorial n id
+  yield! facSeq (n + 1)
 }
-fac_seq 10
+
+let fac_seq = facSeq 0
+
+fac_seq
 |> Seq.take 10
 |> Seq.iter (printfn "%A")
 
 // 50.2.2
-let seq_seq n = seq{
-  for i in 0..n do yield if i % 2 = 0 then i/2 else -(i+1)/2
+let rec seqSeq i = seq{
+  yield if i % 2 = 0 then i/2 else -(i+1)/2
+  yield! seqSeq (i+1)
 }
-seq_seq 10
+
+let seq_seq = seqSeq 0
+seq_seq
 |> Seq.take 10
 |> Seq.iter (printfn "%A")
