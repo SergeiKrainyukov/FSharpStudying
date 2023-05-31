@@ -1,5 +1,5 @@
 // 49.5.1
-let even_seq = Seq.initInfinite (fun i -> i*2)
+let even_seq = Seq.initInfinite (fun i -> i*2+2)
 
 let rec factorial n c =
     if n <= 1 then c 1

@@ -371,7 +371,7 @@ printfn "%A" (bigList 12000000 id)
 
 
 // 49.5.1
-let even_seq = Seq.initInfinite (fun i -> i*2)
+let even_seq = Seq.initInfinite (fun i -> i*2+2)
 even_seq
 |> Seq.take 10
 |> Seq.iter (printfn "%A")
